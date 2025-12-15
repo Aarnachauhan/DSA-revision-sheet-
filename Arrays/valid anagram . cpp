@@ -1,0 +1,81 @@
+brute force:
+
+tc-o(n2) sc-o(1)
+🔹 Algorithm (thinking)
+
+If lengths differ → return false
+
+For each character in s:
+
+Find it in t
+
+Remove it from t
+
+If t becomes empty → anagram
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.length()!=t.length()){
+            return false;
+        }
+
+        for(char c:s){
+          auto it=find(t.begin(),t.end(),c);  // (start,end, what are we searching)
+
+            if(it==t.end()) return false;
+
+          t.erase(it); //remove it from t
+        }
+        return true;
+    }
+};
+
+
+better approach 
+  tc-o(nlogn)
+  sc-o(1)
+
+ sort both the strings and see if they are equal 
+  class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.length()!=t.length()) return false;
+
+        sort(s.begin(),s.end());
+        sort(t.begin(),t.end());
+
+        if(s==t) return true;
+        else return false;
+    }
+};
+
+
+optimal 
+    tc-o(n)
+    sc-O(1)
+
+  class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.length()!=t.length()) return false;
+
+        vector<int> freq(26,0);
+        for(char c:s){
+            freq[c-'a']++;
+        }
+
+        for(char c:t){
+           freq[c-'a']--;
+        }
+
+        for(int x:freq){
+            if(x!=0) return false;
+        }
+        return true;
+    }
+};
+
+
+
+    
