@@ -1,5 +1,5 @@
-tc-
-sc-
+tc-o(n + 2e) = o(n + e )
+sc- o(n)
 queue is used 
 
 
