@@ -31,7 +31,57 @@ public:
 };
 
 better :
-tc-o()
-sc-o()
+tc- O(nlogn + n) = o(nlogn) //nlogn for sorting and n for frequency count
+sc-o(n)
+
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> topKFrequent(vector<int>& nums, int k) {
+    unordered_map<int,int> freq;
+    for(int x : nums) freq[x]++;
+
+    vector<pair<int,int>> vec;
+    for(auto it : freq) {
+        vec.push_back({it.second, it.first});
+    }
+
+    sort(vec.rbegin(), vec.rend());
+
+    vector<int> ans;
+    for(int i = 0; i < k; i++) {
+        ans.push_back(vec[i].second);
+    }
+
+    return ans;
+}
+
+
+optimal - hashmap + priority queue( heap )
+didnt understand 
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> freq;
+        for(int num : nums){
+            freq[num]++;
+        }
+
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        for(auto &p : freq){
+            pq.push({p.second, p.first});
+            if(pq.size() > k){
+                pq.pop();
+            }
+        }
+        
+        vector<int> res;
+        while(!pq.empty()){
+            res.push_back(pq.top().second);
+            pq.pop();
+        }
+        return res;
+    }
+};
 
   
